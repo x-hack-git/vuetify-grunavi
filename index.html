@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+  ​
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="CSS/index.css"> -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+    <title>Document</title>
+  </head>
+  ​
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-app-bar color="blue">
+            <h1>
+              飲食店検索アプリ
+              <span class="bottom-align">お店をさがそう！ (Vuetify.ver)</span>
+            </h1>
+          </v-app-bar>
+          <div class="search-section">
+            <p>
+              検索したい都道府県、カテゴリ、フリーワードを入力してください。
+            </p>
+            <select v-model="selectPreId">
+              <option
+                v-for="prefectureName in prefecturesObj"
+                :value="prefectureName.pref_code"
+              >
+                {{prefectureName.pref_name}}
+              </option>
+            </select>
+            <select v-model="selectCategoryId">
+              <option
+                v-for="categoryName in CategoriesObj"
+                :value="categoryName.category_l_code"
+              >
+                {{categoryName.category_l_name}}
+              </option>
+            </select>
+            <input v-model="freeWord" placeholder="フリーワード" />
+            <input
+              type="submit"
+              @click="wordSearch()"
+              name="submit"
+              value="検索"
+            />
+          </div>
+          <v-container>
+            <!-- 表示セクション -->
+            <section>
+              <v-row>
+                <v-col cols="3" v-for="restaurantInfo in restaurants" :key="restaurantInfo.id">
+                  <v-card >
+                    <img
+                      :src="restaurantInfo.image_url.shop_image1"
+                      alt="shop_image"
+                    />
+                    {{restaurantInfo.name}} {{restaurantInfo.address}}
+                    {{restaurantInfo.pr.pr_short}}
+                  </v-card>
+                </v-col>
+              </v-row>
+            </section>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+    ​
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+  ​
+</html>
